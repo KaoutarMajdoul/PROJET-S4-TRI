@@ -104,36 +104,43 @@
 
 
 \section{Tri dénombrement}
+
 \subsection{Description}
 
 
 
-\hspace{1.0 cm} Le tri dénombrement est un algorithme de tri reposant sur le principe de construction d'un histogramme des données puis le balayage de celui-ci de façon croissante afin d'obtenir les données triées.
-De ce fait, ici, plusieurs éléments identiques seront représentés par un unique élément quantifié. Ce tri ne peut donc pas être appliqué sur des structures complexes, et il convient exclusivement aux données constituées de nombres entiers compris entre une borne minimale et une borne maximale connues. Dans un souci d'efficacité, celles-ci doivent être relativement proches l'une de l'autre, ainsi que le nombre d'éléments doit être relativement grand. 
+\hspace{1.0 cm} Afin de décrire l'algorithme de tri par dénombrement de manière formelle nous allons dérouler les différentes étapes avant d'obtenir un tableau de données trié. Tout d'abord, nous créons un tableau de \textit{n} valeurs aléatoires comprises entre deux valeurs choisies. Suite à cela nous parcourons le tableau et nous comptons le nombre de fois que chaque élément apparaît dans un tableau des effectifs \textit{E} dont la taille est la valeur maximum du tableau de départ et avec \textit{E[i] }le nombre de fois où le nombre \textit{i} apparaît dans le tableau.
+Enfin nous le parcourrons dans le sens croissant et plaçons dans le tableau trié \textit{E[i]} fois l’élément \textit{i} avec \textit{i} allant de la plus petite valeur à la plus grande.
 
 
-Tout d'abord, on parcourt le tableau et on compte le nombre de fois que chaque élément apparaît. Une fois qu’on a le tableau des effectifs E, avec E[i] le nombre de fois où i apparaît dans le tableau, on peut le parcourir dans le sens croissant et placer dans le tableau trié E[i] fois l’élément i avec i allant de l’élément minimum du tableau jusqu’à l’élément maximum.\\
 
+
+
+\hspace{1.0 cm} D'autre part, de manière informelle, le tri dénombrement est un algorithme de tri reposant sur le principe de construction d'un histogramme des données puis le balayage de celui-ci de façon croissante afin d'obtenir les données triées.
+De ce fait, ici, plusieurs éléments identiques seront représentés par un unique élément quantifié. Ce tri convient exclusivement aux données constituées de nombres entiers compris entre une valeur minimale et une valeur maximale définies. Dans un souci d'efficacité, celles-ci doivent être assez proches l'une de l'autre et le nombre d'éléments doit être relativement grand afin d'obtenir une utilisation optimale de cette algorithme.
 
 Ainsi, l'algorithme donne le psuedo-code suivant : \\
 
 \begin{tcolorbox}
+Créer un tableau \textit{T} de \textit{n} valeurs aléatoires bornées\\
 Chercher l'élément maximum du tableau \\
- Créer un tableau E de taille Max + 1, initialisé à 0\\
+ Créer un tableau \textit{E} de taille max + 1, initialisé à 0\\
 
-Pour chaque élément du tableau\\
-\hspace*{1.0 cm} Incrémenter E[Tableau[i]]\\
+Pour chaque élément du tableau de départ\\
+\hspace*{1.0 cm} Incrémenter \textit{E[T[i]] }\\
 
-Pour chaque élément de E\\
-\hspace*{1.0 cm}   Recopier E[i] fois le nombre i dans le tableau trié
+Pour chaque élément du tableau \textit{E}\\
+\hspace*{1.0 cm}   Recopier \textit{E[i]} fois le nombre \textit{i} dans le tableau trié\\
+Lire le tableau \textit{E} dans l'ordre croissant
 \end{tcolorbox}
+
 
 
 \newpage
 \subsection{Exemple}
 \hspace{1.0 cm} Afin d'illustrer cet algorithme nous allons dérouler un exemple de son utilisation.
-Voici un tableau d’entier que l’on souhaite trier dans l’ordre croissant en utilisant le tri par dénombrement : 8, 6, 1, 3, 8, 1, 1.
-La première étape est de créer notre tableau des effectifs H, la deuxième est simplement de le parcourir et de recopier dans le tableau trié les valeurs : 
+Soit le tableau d’entier : 9, 7, 1, 4, 8, 1, 1 que l’on souhaite trier dans l’ordre croissant en utilisant le tri par dénombrement.
+Dans un premier temps nous allons créer notre tableau des effectifs H puis nous allons le parcourir et recopier les valeurs dans le tableau trié :
 
 \vspace{0.5 cm}
 \hspace{3.0 cm}
@@ -144,18 +151,18 @@ La première étape est de créer notre tableau des effectifs H, la deuxième es
   0 &	0 &	on ne fait rien &\\
   1 &	3 &	on ajoute trois fois 1 &	1 1 1\\
   2 &	0 &	on ne fait rien &	1 1 1\\
-  3 &	1 &	on ajoute une fois 3 &	1 1 1 3\\
-  4 &	0& 	on ne fait rien &	1 1 1 3\\
-5 &	0 &	on ne fait rien &	1 1 1 3\\
-6 &	1 &	on ajoute une fois 6 &	1 1 1 3 6\\
-7 &	0 &	on ne fait rien  &	1 1 1 3 6\\
-8 &	2& 	on ajoute deux fois 8 &	1 1 1 3 6 8 8\\
+  4 &	1 &	on ajoute une fois 4&	1 1 1 4\\
+  4 &	0& 	on ne fait rien &	1 1 1 4\\
+5 &	0 &	on ne fait rien &	1 1 1 4\\
+7 &	1 &	on ajoute une fois 7 &	1 1 1 4 7\\
+7 &	0 &	on ne fait rien  &	1 1 1 4 7\\
+9 &	2& 	on ajoute deux fois 9 &	1 1 1 4 7 9 9\\
   \hline
 \end{tabular}
 
 
 \vspace{1.0 cm}
-On a atteint le maximum de notre tableau des effectifs H, notre tableau est donc trié : 1, 1, 1, 3, 6, 8, 8.
+On a atteint le maximum de notre tableau des effectifs H, notre tableau est donc trié : 1, 1, 1, 4, 7, 9, 9.
 
 
 
@@ -165,30 +172,30 @@ On a atteint le maximum de notre tableau des effectifs H, notre tableau est donc
 
 
 
-Notons n la taille de la liste considérée. Le calcul du minimum et du maximum coûte un parcourt de la liste, soit Θ(n) et l'allocation de l'histogramme Θ(m) où m désigne l'étendue de la liste L. Notons H l'histogramme, la construction de celui-ci demande un nouveau parcourt de la liste et à donc un coût de Θ(n). La reconstruction de la liste dans la boucle est facile à analyser globalement, on vide chacun des H[i] et on sait que : 
+\hspace{1.0 cm}  Notons \textit{n} la taille de la liste considérée. Le calcul du minimum et du maximum coûte un parcourt de la liste, soit \textit{Θ(n) }et l'allocation de l'histogramme Θ\textit{(m)} où m désigne l'étendue de la liste \textit{L}. Notons \textit{H} l'histogramme, la construction de celui-ci demande un nouveau parcourt de la liste et à donc un coût de \textit{Θ(n)}. Pour la reconstruction de la liste dans la boucle on vide chacun des \textit{H[i]} et on sait que : 
 
 
 \hspace{6.0 cm}\large\sum\limits_{i=1}^{maxL−minL+1}  H[i]=n \\
 
 
-\normalsize donc la reconstruction de la liste coûte elle aussi Θ(n).
+\normalsize donc la reconstruction de la liste coûte elle aussi \textit{Θ(n)}.
 
 
-\normalsize Les seules opérations que l'on effectue dans notre fonction se font en temps linéaire. L'initialisation du tableau des effectifs se fait en O(n) (avec n la taille de la liste en entrée), et la copie des éléments dans notre tableau trié en O(m) (avec m correspondant à max).
+\normalsize Les seules opérations que l'on effectue dans notre fonction se font en temps linéaire. L'initialisation du tableau des effectifs se fait en \textit{O(n)} avec n la taille de la liste en entrée et la copie des éléments dans notre tableau trié en \textit{O(m)} avec m correspondant à max.
 
 
-La complexité de l'algorithme de tri par dénombrement T pour une liste L de taille n et d'étendue m est : 
+La complexité de l'algorithme de tri par dénombrement \textit{T} pour une liste \textit{L} de taille \textit{n} et d'étendue \textit{m} est : 
 
 
 \hspace{6.0 cm}\large T(n,m)=Θ(n+m) \\ 
 
 
-\normalsize Cet algorithme n'est donc linéaire que si la taille m de l'histogramme reste raisonnable O(n) au regard de la taille de la liste, autrement dit quand la dispersion est faible et dans ce cas T(n,m)=Θ(n). C'est la dispersion qui conditionnera l'utilisation ou non de ce tri. 
+\normalsize Cet algorithme n'est donc linéaire que si la taille \textit{m} de l'histogramme reste raisonnable O(n) au regard de la taille de la liste, autrement dit quand la dispersion est faible et dans ce cas \textit{T(n,m)=Θ(n).} C'est la dispersion qui conditionnera l'utilisation ou non de ce tri. 
 
 
 
 
-La complexité finale de notre algorithme est donc O(n+m), soit une complexité en temps linéaire.
+La complexité finale de notre algorithme est donc \textit{O(n+m)}, soit une complexité en temps linéaire.
 
 \newpage
 \subsection{Avantages et inconvénients}
@@ -234,6 +241,8 @@ La complexité finale de notre algorithme est donc O(n+m), soit une complexité 
 Cet algorithme est donc très efficace mais il faut savoir faire un choix entre rapidité et stockage, en plus de ne pouvoir l'utiliser que sur des nombre entiers.
  
 \pagebreak
+
+
 
 \newpage
 \section{Tri lexicographique}
