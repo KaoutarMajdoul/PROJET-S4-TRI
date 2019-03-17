@@ -235,7 +235,51 @@ Cet algorithme est donc très efficace mais il faut savoir faire un choix entre 
  
 \pagebreak
 
+\newpage
+\section{Tri lexicographique}
+\subsection{Description}
 
+\hspace{1.0 cm} L'ordre lexicographique est la manière d'organiser les mots en se basant sur l'ordre alphabétique. Il rappelle la façon de rechercher un mot dans un dictionnaire : nous commençons par chercher la première lettre du mot puis la seconde, et ainsi de suite.
+Le tri lexicographique prend donc en paramètre une liste de mots à trier. Chacun des mots sont créés au hasard et la liste est au départ non triée. Le nombre de mots dans la liste est choisie et donnée en paramètre. Plus il y a de mots, plus le tri mettra du temps. 
+L'algorithme parcourt la liste en prenant le premier mot et en le comparant au reste des mots, lettre par lettre. Le mot est ensuite placé dans la liste suivant l'ordre alphabétique.
+
+Nous avons ainsi le pseudo-code suivant :
+
+\begin{tcolorbox}
+Créer une nouvelle liste de mots, non triée \\
+ 
+
+Pour chaque mot de la liste\\
+\hspace*{1.0 cm} Comparaison du mot avec le reste de la liste et replace le mot dans la liste\\
+
+Retourne la liste triée\\
+\end{tcolorbox}
+
+\subsection{Exemple}
+\hspace{1.0 cm} En vue de mieux comprendre l'algorithme, nous allons l'utiliser sur une liste de mots $ L_{i} $ : (xyz, abc, Ade). La liste de mots sera modifiée pour donner à la fin la liste triée.
+
+\vspace{0.5 cm}
+
+\begin{tabular}{|l|c|r|}
+  \hline
+  i & Action & Liste \\
+  \hline
+  0 &		on va comparer le premier mot au suivant & (xyz, abc, Ade)\\
+  1 &		on va comparer ce même mot au reste de la liste &	(abc, xyz, Ade)\\
+  2 &		on va comparer le nouveau premier élément au reste de la liste &	(abc, Ade, xyz)\\
+  3 &		 - &	(Ade, abc, xyz)\\
+  \hline
+\end{tabular}
+
+\subsection{Complexité}
+\hspace{1.0 cm} Soit n la taille de la liste à trier. La  création de la liste est une opération élémentaire. Pour le triage de la liste, nous utilisons la méthode sort() du langage python. Sa complexité est de l'ordre de O(n log n). La complexité de l'algorithme est donc de l'ordre de O(n log n) dans un cas moyen et dans le pire des cas.
+
+\subsection{Avantages et inconvénients}
+\hspace{1.0 cm} En ce qui concerne les point positifs, cet algorithme reste constant dans sa complexité en temps, même avec une liste assez grande. De plus, la liste est triée dans cette même liste, la mémoire requise pour le tri n'excède donc pas la taille de la liste.
+
+Cependant, le tri ne se fait que sur des mots. On peut également rajouter que la complexité en temps n'est plus linéaire mais linéarithmique. 
+
+\newpage
 
 
 
