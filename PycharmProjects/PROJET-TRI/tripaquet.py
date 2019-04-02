@@ -1,64 +1,80 @@
-import time
+#!/usr/bin/python3.4
+# coding: utf-8
 import random
-import math
+
 import csv
+import random
+import time
+
+import matplotlib.pyplot as plt
+import os
+import getpass
+import sys
+from pathlib import Path
+
+def bucket_sort(nbElem):
+    start_time = time.time()
+    alist = random.sample(range(100,50000), nbElem)
+    largest = max(alist)
+    length = len(alist)
+    size = largest / length
+
+    buckets = [[0 for i in range(largest + 1)] for _ in range(length + 1)]
+    # bucket de  taille largest +1
+    # liste de longeur max de liste
+    # chaque fois on ajoute un a l'indice de l'elemnt de alist
+
+    for i in range(length):
+        j = int(alist[i] / size)
+        buckets[j][alist[i]] += 1
+
+    result = []
+
+    for i in range(length):
+        # on parcourt bucket et si chaque elemnt != 0 on met indice dans liste resultat
+        for j in range(largest):
+            # on ajoute l'elem different de 0
+            while buckets[i][j] != 0:
+                result.append(j)
+                buckets[i][j] -= 1
+
+    del  alist
 
 
-def bucketSort(nbElem):
-    array = random.sample(range(1000), nbElem) #initialise tableau d'entier
-    if len(array) == 0:
-        return array
-    bucketSize= 10
+    # calcul temps écoulé
+    tempsEc = time.time() - start_time;
+    print("TRI PAQUET")
+    print("Nb elem : %d " % nbElem)
+    print("Temps d'execution : %s secondes" % (tempsEc))
 
-    # Determine minimum and maximum values
-    minValue = array[0]
-    maxValue = array[0]
-    for i in range(1, len(array)):
-        if array[i] < minValue:
-            minValue = array[i]
-        elif array[i] > maxValue:
-            maxValue = array[i]
+    # écrit le temps écoulé dans le fichier [nbElem]tripaquet.csv
+    savepathTemps = str(Path.home()) + '/PycharmProjects/PROJET-TRI/tempsPaquet'
+    completePathTemps = os.path.join(savepathTemps, '%dtripaquet.txt ' % nbElem)
+    f = open(completePathTemps, 'a')
+    f.write(str(tempsEc) + '\n')
+    f.close()
 
-    # Initialize buckets
-    bucketCount = math.floor((maxValue - minValue) / bucketSize) + 1
-    buckets = []
-    for i in range(0, int(bucketCount)):
-        buckets.append([])
-
-    # Distribute input array values into buckets
-    for i in range(0, len(array)):
-        buckets[math.floor((array[i] - minValue) / bucketSize)].append(array[i])
-
-    # Sort buckets and place back into input array
-    array = []
-    for i in range(0, len(buckets)):
-        insertion_sort.sort(buckets[i])
-        for j in range(0, len(buckets[i])):
-            array.append(buckets[i][j])
-
-    return array
-
-    #calcul de la moyenne du temps d'exécution de l'algo
+    # calcul de la moyenne à l'aide des variable : somme, moyenne, nbLigne
     somme = 0
     moyenne = 0
     nbLigne = 0
-    cr = csv.reader(open("%dtripaquet.csv" %nbElem, "r"))
-    for r in cr: #r = colonne
-        somme  += float(r[0])
+
+    # on ouvre le fichier contenant les temps en lecture
+    cr = (open(completePathTemps, "r"))
+
+    # pour chaque élément de la colonne r, on additionne les valeur et on
+    # incrémente le nbLigne afin de calculer la moyenne
+    for r in cr:  # r = colone
+        somme += float(r[0])
         nbLigne += 1
-    print("Somme temps : %s" % somme)
+    # print("Somme temps : %s" % somme)
     moyenne = somme / nbLigne
-    print("Moyenne : %s" % moyenne)
-    print("Nb valeur : %s " % nbLigne)
-    
-    #stockage du temps moyen dans un fichier
-    moy = open('%dmoytripaquet.csv' % nbElem, 'w')
-    moy.write(str(moyenne) + '\n')
+    # print("Moyenne : %s" % moyenne)
+    # print("Nb valeur : %s " % nbLigne)
+
+    # on enregistre la moyenne obtenu dans le fichier moytripaquet.txt
+    savepathMoy = str(Path.home()) + '/PycharmProjects/PROJET-TRI/moyPaquet'
+    completePathMoy = os.path.join(savepathMoy, 'moytripaquet.txt')
+    moy = open(completePathMoy, 'a')
+    moy.write(str(moyenne) + ',' + str(nbElem) + '\n')
     moy.close()
-    
-def main():
-    
-    bucketSort(15);
-
-
-main()
