@@ -69,6 +69,8 @@ def courbe():
     open(completePathDenombrement, "w").close()
     open(completePathLexico, "w").close()
     open(completePathPaquet, "w").close()
+    
+   
 
 
 def lancement(nbLancement,min,pas,max):
@@ -81,9 +83,10 @@ def lancement(nbLancement,min,pas,max):
 
     savepathPaquet = str(Path.home()) + '/PycharmProjects/PROJET-TRI/moyPaquet'
     completePathPaquet = os.path.join(savepathPaquet, 'moytripaquet.txt')
-
-    while nbLancement > 0 :
-        print("--------- %d " % nbLancement , "-------------")
+    
+    nbLance = nbLancement 
+    while nbLance > 0 :
+        print("--------- %d " % nbLance , "-------------")
         open(completePathDenombrement, "w").close() #on supp les anciennes moyenne afin de garder celle du dernier lancement
         open(completePathLexico, "w").close()
         open(completePathPaquet, "w").close()
@@ -94,13 +97,22 @@ def lancement(nbLancement,min,pas,max):
             tripaquet.bucket_sort(val);
             val += pas
 
-        nbLancement -= 1
+        nbLance -= 1
 
 
-
-
+    
     courbe();
+    
+    pathSaveDirectory =str(Path.home()) +'/PycharmProjects/PROJET-TRI/figures'
+    pathSaveFileInDir = os.path.join(pathSaveDirectory, "%s L %s MIN %s PAS %s MAX.png" % ( nbLancement, min ,pas, max))
+    
+    
+    
+    print("TEST -------- %s " % pathSaveFileInDir)
+    matplotlib.pyplot.savefig(pathSaveFileInDir);
 
+   
+  
 
 
 
@@ -109,7 +121,7 @@ def lancement(nbLancement,min,pas,max):
 
 def main():
 
-    lancement(2,1000,1000,10000);
+    lancement(5,50,10,70);
 
 
 
