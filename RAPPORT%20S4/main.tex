@@ -291,8 +291,26 @@ Cependant, le tri ne se fait que sur des mots. On peut également rajouter que l
 
 \newpage
 
+\section{Tri par répartition}
+\subsection{Description}
 
+\hspace{1.0 cm} Le tri par dénombrement utilise la même procédure de fonctionnement qu’un facteur dans un centre de tri postal. Le facteur dispose d'une armoire de tri constituée d'autant de casiers qu'il y a d'adresses dans sa tournée.
+Avant de commencer sa tournée, le facteur récupère les enveloppes à distribuer, les éléments d’une liste L par exemple, et range chaque enveloppe L[i] dans le casier correspondant à l'adresse sur l'enveloppe. Une fois toutes les enveloppes réparties dans les casiers, le facteur n'a plus qu'à les rassembler dans l'ordre des casiers (les concaténer) pour commencer sa tournée. Par ailleurs, nous prenons en compte que le facteur aura une tournée optimale pour minimiser la distance à parcourir.
 
+Nous avons ainsi le pseudo-code suivant :
+
+...
+
+\subsection{Exemple}
+...
+
+\subsection{Complexité}
+\hspace{1.0 cm} Les seules opérations qu l'on effectue dans notre fonction se font en temps linéaire. L'initialisation du tableau des effectifs se fait en O(N) (avec N la taille du tableau en entrée), et la copie des éléments dans notre tableau trié en O(M) (avec M correspondant à Max). La complexité de cet algorithme est donc simple à calculer, et elle se fait ainsi en O(N+M), une complexité linéaire. 
+
+\subsection{Avantages et inconvénients}
+\hspace{1.0 cm} Le tri par répartition reste un algorithme très efficace. Cependant, le tri ne se fait que sur des nombres entiers, sa complexité en mémoire est mauvaise car l'algorithme peut prendre très vite beaucoup de place. 
+
+\newpage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
