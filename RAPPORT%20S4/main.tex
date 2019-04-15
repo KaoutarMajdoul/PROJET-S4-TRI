@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[12pt]{article}
 \usepackage[french]{babel}
 \usepackage{natbib}
 \usepackage{url}
@@ -81,16 +81,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \LARGE\textbf{Remerciement}\\ \vspace{0.5 cm}
 
+
 \newpage
 
 \LARGE\textbf{Introduction}\\ \vspace{0.5 cm}
 
-\normalsize{Dans le cadre du projet se déroulant  [à completer]}
+\normalsize{
+\hspace{1.0 cm} Dans le cadre du module du projet se déroulant tout le long du second semectre de L2, nous avons
+été chargé de proposer et d'analyser les performances de plusieurs algorithmes de tri de données dont la complexité en temps
+est linéaire.
+
+\hspace{1.0 cm} Ce travail a été effectué par notre groupe composé de quatres personnes : MAJDOUL Kaoutar, CHAMROUK Laila, MESSAOUI 
+Soukaîna et LAAFOU Ayoub. Ceci sous la direction du Mr. GIROUDEAU pour une durée de 15 semaine soit de janvier à mi-mai 2019.}
+
+\subsection*{Présentation du projet}
+ %Selon l'utilisation du tri 
+ 
+\hspace{1.0 cm}  L'objectif principale d'un algorithme de tri est de résoudre un problème de façon correct en un temps fini. Il décrit un ensemble de règles qui s'applique à des données. Puis lorqu'il est executé sur ces données il termine en un temps fini et produit un résultat représentant une solution du problème donné.
+
+\hspace{1.0 cm}Selon la méthode de tri la complexité en temps et en mémoire peut être exponentielle, il est donc intéressant de visualiser la durée d'exécution de données selon un nombre d'éléments afin de choisir le tri le plus optimal à l'utilisation voulue.
+
+\hspace{1.0 cm}De ce fait, nous nous intéresserons à plusieurs algorithme de tri dont la complexité modulo une utilisation maximale de la mémoire est linéaire que nous programmerons et exécuterons de sorte à visualiser leur performance en temps et
+en mémoire.
+
+\hspace{1.0 cm} Enfin, nous avons choisi le langage\textit{ Python} pour toute la partie programmation de ce projet. En effet, ce langage étant facile à apprendre, interactif et orienté objet il nous a permis de traiter les données de façon simple et lisible afin de nous concentré sur l'algorithmique de chaque fonction plutôt que la syntaxe. 
+De plus, les nombreuses bibliothèques incluses ainsi l'abondance de documentation présente sur internet nous ont conforté dans le choix de ce langage de programmation.
+
+\newpage
+
+\subsection*{Cahier des charges}
 
 
 
-
-
+[PLAN]
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,10 +124,9 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Présentation du projet}
-\newpage
 
-\section{Tri dénombrement}
+
+\section{Tri par dénombrement}
 
 \subsection{Description}
 
@@ -176,7 +198,7 @@ On a atteint le maximum de notre tableau des effectifs H, notre tableau est donc
 \hspace{1.0 cm}  Notons \textit{n} la taille de la liste considérée. Le calcul du minimum et du maximum coûte un parcourt de la liste, soit \textit{Θ(n) }et l'allocation de l'histogramme Θ\textit{(m)} où m désigne l'étendue de la liste \textit{L}. Notons \textit{H} l'histogramme, la construction de celui-ci demande un nouveau parcourt de la liste et à donc un coût de \textit{Θ(n)}. Pour la reconstruction de la liste dans la boucle on vide chacun des \textit{H[i]} et on sait que : 
 
 
-\hspace{6.0 cm}\large\sum\limits_{i=1}^{maxL−minL+1}  H[i]=n \\
+\hspace{6.0 cm}\large\sum\limits$_{i=1}^{maxL−minL+1}  H[i]=n $\\
 
 
 \normalsize donc la reconstruction de la liste coûte elle aussi \textit{Θ(n)}.
@@ -188,7 +210,7 @@ On a atteint le maximum de notre tableau des effectifs H, notre tableau est donc
 La complexité de l'algorithme de tri par dénombrement \textit{T} pour une liste \textit{L} de taille \textit{n} et d'étendue \textit{m} est : 
 
 
-\hspace{6.0 cm}\large T(n,m)=Θ(n+m) \\ 
+\hspace{6.0 cm}\large $T(n,m)=Θ(n+m) $\\ 
 
 
 \normalsize Cet algorithme n'est donc linéaire que si la taille \textit{m} de l'histogramme reste raisonnable O(n) au regard de la taille de la liste, autrement dit quand la dispersion est faible et dans ce cas \textit{T(n,m)=Θ(n).} C'est la dispersion qui conditionnera l'utilisation ou non de ce tri. 
@@ -282,7 +304,7 @@ Retourne la liste triée\\
 \end{tabular}
 
 \subsection{Complexité}
-\hspace{1.0 cm} Soit n la taille de la liste à trier. La  création de la liste est une opération élémentaire. Pour le triage de la liste, nous utilisons la méthode sort() du langage python. Sa complexité est de l'ordre de O(n log n). La complexité de l'algorithme est donc de l'ordre de O(n log n) dans un cas moyen et dans le pire des cas.
+\hspace{1.0 cm} Soit n la taille de la liste à trier. La  création de la liste est une opération élémentaire. Pour le triage de la liste, nous utilisons la méthode sort() du langage python. Sa complexité est de l'ordre de $ O(n log n) $ . La complexité de l'algorithme est donc de l'ordre de $ O(n log n)$ dans un cas moyen et dans le pire des cas.
 
 \subsection{Avantages et inconvénients}
 \hspace{1.0 cm} En ce qui concerne les point positifs, cet algorithme reste constant dans sa complexité en temps, même avec une liste assez grande. De plus, la liste est triée dans cette même liste, la mémoire requise pour le tri n'excède donc pas la taille de la liste.
@@ -290,6 +312,8 @@ Retourne la liste triée\\
 Cependant, le tri ne se fait que sur des mots. On peut également rajouter que la complexité en temps n'est plus linéaire mais linéarithmique. 
 
 \newpage
+
+
 
 \section{Tri par répartition}
 \subsection{Description}
@@ -312,6 +336,70 @@ Nous avons ainsi le pseudo-code suivant :
 
 \newpage
 
+\section{Tri par base}
+\subsection{Description}
+
+\hspace{1.0 cm}Pour trier des entiers de \textit{c }chiffres, l'algorithme utilise un tri stable, ici, le tri par dénombrement pour trier les nombres par rapport à chacun de ces chiffres en commençant par le chiffre des unités. 
+Appelé radix sort en anglais, cette algorithmes de tri utilise la décomposition des objets à trier dans une base donnée.  Son fonctionnemenet consiste à trier les éléments en commençant par leur chiffre le moins significatif, autrement dit en les considérant de la droite vers la gauche : les éléments sont  d’abord triés suivant leur dernier chiffre, puis suivant l’avant-dernier et ainsi de suite. 
+
+Pour trier des entiers contenant \textit{c} chiffres, l'algorithme utilise un tri par dénombrement pour trier les éléments selon chacun de ces chiffres en commençant par le chiffre des unités tel que le décrit l'algorithme en pseudo-code suivant : 
+
+
+\begin{tcolorbox}
+
+//*Tri un tableau A ayant des nombres d’au plus c chiffres*// \\
+pour i←1 à c faire \\
+\hspace*{1.0 cm} utiliser un tri par dénombrement pour trier A selon le chiffre i \\
+fin pour \\
+Retourne la liste triée\\
+\end{tcolorbox}
+
+
+
+
+\subsection{Exemple}
+\hspace{1.0 cm} Nous allons maintenant utiliser cette algorithme à travers un exemple,  
+Soit le tableau d’entier : 19, 5, 66, 123, 245, 802, 221 que l’on va trier dans l’ordre croissant à l'aide du tri par base. Ce tri nécessitera 3 tours, en effet durant le premier tour on triera par rapports aux chiffres des unités, le deuxième tour on triera par rapport aux chiffres des dizaines et le derniers tour on triera par rapport aux chiffres des centaines.
+
+
+\vspace{0.5 cm}
+\hspace{3.0 cm}
+\begin{tabular}{|l|c|c|r|}
+  \hline
+  début & premier tour & deuxième tour & troisième tour\\
+  \hline
+  19  &	22\underline{1} & 5 & 5\\
+   5  &	80\underline{2} & 8\underline{0}2  & 19\\
+  66  &	12\underline{3} &	\underline{1}9 & 66\\
+  123 &	34\underline{5} & 1\underline{2}3 & \underline{1}23\\
+  345 &	\underline{5} & 2\underline{2}1 & \underline{2}21\\
+  802 &	6\underline{6} & 3\underline{4}5 & \underline{3}45 \\
+  221  &	1\underline{9} &\underline{6}6 & \underline{8}02 \\
+
+  \hline
+\end{tabular}
+
+\vspace{1.0 cm}
+Une fois les chiffres triés nous obtenons la liste triée suivante : 5, 19, 66, 123, 221, 345, 802.
+
+
+\subsection{Complexité}
+
+ \hspace{1.0 cm}Premièrement la complexité de cette algorithme dépendra
+ de l'algorithme utilisé dans la boucle principale. Ici nous utilisons l'algorithme de tri dénombrement.
+ 
+ 
+\hspace{1.0 cm}C'est un tri en temps linéaire $O(N+M)$ avec N la taille du tableau, et M
+ l'élément maximum du tableau. Pour ce tri lorsqu'on a N nombres à C chiffres on obtient une complexité égale à $ O(C×(N+M))$. 
+ 
+ 
+ \hspace{1.0 cm}Cependant dans le cas de cette algorithme M n'ira jamais au-delà de 9. Donc M devient une constante négligeable, ce qui revient à une complexité $O(C×N)$,que l'on peut simplifier à une complexité $O(N)$. 
+
+\subsection{Avantages et inconvénients}
+\hspace{1.0 cm} Si les nombres utilisés sont de petits entiers, le tri est relativement rapides, les comparaisons sont faites avec quelques opérations qui opèrent en un temps constant. Dans ce cas, le tri par base s'exécutera en O(n) et est alors plus rapide que d'autres algorithmes de tri.
+
+\hspace{1.0 cm}Le désavantage du tri par base est qu'il peut être très lent pour des clefs longues. 
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -325,6 +413,11 @@ Nous avons ainsi le pseudo-code suivant :
 \section{Conclusion}
 
 \newpage
+
+\section{Mode d'emploi}
+
+\newpage
+\section{Annexes}
 %\bibliographystyle{plain}
 %\bibliography{biblist}
 
