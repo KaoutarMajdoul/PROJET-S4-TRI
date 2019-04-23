@@ -34,7 +34,7 @@ def bucket_sort(nbElem):
     nbLigne = 0
     cr = csv.reader(open("%dmoyRepartition.csv" %nbElem, "r"))
     for r in cr: #r = colonne
-        somme  += float(r[0])
+        somme  += float(r[0:20])
         nbLigne += 1
     print("Somme temps : %s" % somme)
     moyenne = somme / nbLigne
