@@ -47,7 +47,7 @@ def sortLexo(nbElem):
     # pour chaque élément de la colonne r, on additionne les valeur et on
     # incrémente le nbLigne afin de calculer la moyenne
     for r in cr:  # r = colone
-        somme += float(r[0])
+        somme += float(r[0:20])
         nbLigne += 1
     # print("Somme temps : %s" % somme)
     moyenne = somme / nbLigne
