@@ -1,5 +1,3 @@
-#!/usr/bin/python3.4
-# coding: utf-8
 import csv
 import random
 import string
@@ -18,9 +16,6 @@ def sortLexo(nbElem):
                          for j in range(random.randint(1000,100000)) ) # nombre de lettres dans le mot (choisi au hasard)
                  for i in range(nbElem) ] # nombre de mots dans la liste à trier
 
-    # récupère la taille de la liste
-    x = len(li)
-    
     # tri de la liste de mot
     li.sort()
 
@@ -66,9 +61,3 @@ def sortLexo(nbElem):
     moy = open(completePathMoy, 'a')
     moy.write(str(moyenne) + ',' + str(nbElem) + '\n')
     moy.close()
-
-
-
-
-
-
