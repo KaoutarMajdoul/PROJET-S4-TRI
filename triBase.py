@@ -52,16 +52,45 @@ def radixSort(nbElem):
     print("Temps d'execution : %s secondes" % (tempsEc))
     
     
-    f = open( '%dtribase.txt' %nbElem, 'a' )
-    f.write( str(tempsEc) + '\n' )
-    f.close() 
+ 
+    print("TRI PAR BASE")
+    print("Nb elem : %d " % nbElem)
+    print("Temps d'execution : %s secondes" % (tempsEc))
+
+    # écrit le temps écoulé dans le fichier [nbElem]tridenombrement.csv
+    savepathTemps = str(Path.home()) + '/PycharmProjects/PROJET-TRI/tempsBase'
+    completePathTemps = os.path.join(savepathTemps, '%dtribase.txt ' % nbElem)
+    f = open(completePathTemps, 'a')
+    f.write(str(tempsEc) + '\n')
+    f.close()
+
+    # calcul de la moyenne à l'aide des variable : somme, moyenne, nbLigne
+    somme = 0
+    moyenne = 0
+    nbLigne = 0
+
+    # on ouvre le fichier contenant les temps en lecture
+    cr = (open(completePathTemps, "r"))
+
+    # pour chaque élément de la colonne r, on additionne les valeur et on
+    # incrémente le nbLigne afin de calculer la moyenne
+    for r in cr:  # r = colone
+        somme += float(r[0:20])
+        nbLigne += 1
+    print("r[0] : %s"  % r[0:20])
+    print("Somme temps : %s" % somme)
+    moyenne = somme / nbLigne
+    print("Moyenne : %s" % moyenne)
+    print("Nb ligne : %s " % nbLigne)
+
+    # on enregistre la moyenne obtenu dans le fichier moytridenombrement.txt
+    savepathMoy = str(Path.home()) + '/PycharmProjects/PROJET-TRI/moyBase'
+    completePathMoy = os.path.join(savepathMoy, 'moytribase.txt')
+    moy = open(completePathMoy, 'a')
+    moy.write(str(moyenne) + ',' + str(nbElem) + '\n')
+    moy.close()
         
     
 
 
-def main():
-    radixSort(25);
 
-if __name__ == "__main__":
-
-    main()
