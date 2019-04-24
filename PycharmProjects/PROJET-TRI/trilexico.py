@@ -22,12 +22,7 @@ def sortLexo(nbElem):
     x = len(li)
     
     # tri de la liste de mot
-    for i in range(0,x):
-        for j in range(0,x):
-            if li[i]<li[j]:
-                temp = li[i]
-                li[i]=li[j]
-                li[j]=temp
+    li.sort()
 
     # supprime la liste
     del li
@@ -73,87 +68,7 @@ def sortLexo(nbElem):
     moy.close()
 
 
-import csv
-import matplotlib.pyplot
-import os
-
-
-
-def courbe():
-
-    # on affiche la courbe des moyennes selon le nbElem
-    x = []
-    y = []
-
-    savepathDenombrement = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico'
-    completePathDenombrement = os.path.join(savepathDenombrement, 'moytrilexico.txt')
-    # on ouvre le fichier contenant les moyennes selon le nbElem
-    with open(completePathDenombrement, 'r') as csvfileDenombrement:
-        # on delimite la separation entre la moyenne et le nbElem par une virgule
-        plots = csv.reader(csvfileDenombrement, delimiter=',')
-        # on attribut les valeurs du nbElem a x et de la moyenne a y
-        for row in plots:
-            x.append(float(row[1]))
-            y.append(float(row[0]))
-
-    
-
-        # on dessine la courbe
-        matplotlib.pyplot.plot(x, y, label='Sort', color="b")
-        
-        matplotlib.pyplot.xlabel('nbElem')
-        matplotlib.pyplot.ylabel('Temps')
-        matplotlib.pyplot.title('Courbe tri')
-        matplotlib.pyplot.legend()
-        matplotlib.pyplot.show()
-
-    # on efface les moyenne afin d'afficher une nouvelle courbe
-    # avec les nouvelles valeurs
-    open(completePathDenombrement, "w").close()
-    
-   
-
-
-def lancement(nbLancement,min,pas,max):
-
-    savepathDenombrement = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico'
-    completePathDenombrement = os.path.join(savepathDenombrement, 'moytrilexico.txt')
-    
-    nbLance = nbLancement 
-    while nbLance > 0 :
-        print("--------- %d " % nbLance , "-------------")
-        open(completePathDenombrement, "w").close() #on supp les anciennes moyenne afin de garder celle du dernier lancement
-        val = min
-        while val <= max:
-            sortLexo(val);
-            val += pas
-
-        nbLance -= 1
-
-
-    
-    courbe();
-    
-    #pathSaveDirectory =str(Path.home()) +'/PycharmProjects/PROJET-TRI/figures'
-    #pathSaveFileInDir = os.path.join(pathSaveDirectory, "%s L %s MIN %s PAS %s MAX.png" % ( nbLancement, min ,pas, max))
-    
-    
-    
-   # print("TEST -------- %s " % pathSaveFileInDir)
-    #matplotlib.pyplot.savefig(pathSaveFileInDir);
-
-   
-  
 
 
 
 
-
-
-def main():
-
-    lancement(3,500,5000,50500);
-
-
-
-main()
