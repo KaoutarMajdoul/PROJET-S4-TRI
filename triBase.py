@@ -9,27 +9,27 @@ def radixSort(nbElem):
     maxLength = False     #On initialise maxLenght à False qui est vrai si on est sur le dernier placement 
     placement = 1         #On initialise placement à 1 qui indique le placement dans notre chiffre
     nbOccurence = [0 for i in range(0, max(list_vals)+1)]; #On créé un tableau de taille max(list_vals)+1  dans lequel on placera le nombre d'occurence à un indice donnée
-    buckets2 = [[] for y in range(0,max(list_vals)+1)]   #On creéé un tableau ayant pour indice les valeurs du tableau nbOccurence
+    occurences = [[] for y in range(0,max(list_vals)+1)]   #On creéé un tableau ayant pour indice les valeurs du tableau nbOccurence
     listTmp = [0 for i in range(0, len(list_vals))]        
     while not maxLength:                                                                            
-        list_counts = [int(((list_vals[i]%(placement*10))/placement)) for i in range(0,nbElem)]     #On complète le tableau list_count en commençant par le chiffre des unités des valeurs de list_vals
+        list_chiffres = [int(((list_vals[i]%(placement*10))/placement)) for i in range(0,nbElem)]     #On complète le tableau list_count en commençant par le chiffre des unités des valeurs de list_vals
         # Dans cette boucle on parcours list_counts et on complète le tableau nbOccurence par le nombre d'occurences de chaque valeurs et on complète buckets2 par les indices d'occurences de chaque élément
         for i in range(0,nbElem):
-            nbOccurence[list_counts[i]]+=1
-            buckets2[list_counts[i]].append(i)
+            nbOccurence[list_chiffres[i]]+=1
+            occurences[list_chiffres[i]].append(i)
         j=0
         # Dans cette boucle on parcours buckets2 et nboccurrence et en fonction du nombre d'occurence enregistrés dans nboccurence, les indices des éléments qui sont enregistrées dans le tableau buckets2 on complète le tableau listTmp qui a la meme taille que listVals  
         for i in range(0, max(list_vals)+1):
             k=0
             while nbOccurence[i] > 0  :
-                listTmp[j]=list_vals[buckets2[i][k]]
+                listTmp[j]=list_vals[occurences[i][k]]
                 j = j+1
                 k = k+1
                 nbOccurence[i] = nbOccurence[i] - 1
         
         #On vide les deux tableaux
         nbOccurence = [0 for i in range(0, max(list_vals)+1)]
-        buckets2 = [[] for i in range(0,max(list_vals)+1)] 
+        occurences = [[] for i in range(0,max(list_vals)+1)] 
         
         #On copie em profondeur le listTmp dans listVal
         list_vals = [listTmp[i]for i in range(0,nbElem)]
