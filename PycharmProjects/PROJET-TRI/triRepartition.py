@@ -11,7 +11,7 @@ def bucket_sort(nbElem):
     # bucket de  taille largest +1 
     # liste de longeur max de liste
     # chaque fois on ajoute un a l'indice de l'elemnt de alist  
-
+	
     for i in range(length):
         j = int(alist[i]/size)
         buckets[j][alist[i]] += 1
@@ -45,6 +45,12 @@ def bucket_sort(nbElem):
     moy = open('%dmoyRepartition.csv' % nbElem, 'w')
     moy.write(str(moyenne) + '\n')
     moy.close()
+
+
+### EXPLICATION ###
+	# 1/ On va faire le quotient pour chaque nombre, entre le nombre et la taille du tableau
+	# 2/ Ca va créer un tableau avec les quotients, et pour chaque quotient le tableau va être trié dans l'ordre
+	# 3/ On concatène
 
 def main():
 
