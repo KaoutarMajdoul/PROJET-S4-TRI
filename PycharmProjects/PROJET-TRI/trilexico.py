@@ -18,31 +18,24 @@ def sortLexo(nbElem):
                          for j in range(random.randint(1000,100000)) ) # nombre de lettres dans le mot (choisi au hasard)
                  for i in range(nbElem) ] # nombre de mots dans la liste à trier
 
-    # tri les mots de la liste dans l'odre lexicographique
+    # récupère la taille de la liste
     x = len(li)
-   
     
-    #print("List is : ",li)
-    
-    
+    # tri de la liste de mot
     for i in range(0,x):
         for j in range(0,x):
             if li[i]<li[j]:
                 temp = li[i]
                 li[i]=li[j]
                 li[j]=temp
-    
-    
 
-    
-    #print("After sorting String is : ",li)
-
+    # supprime la liste
     del li
-    # affiche la liste de mots triés
-   # print(listwords)
 
+    # temps écoulé
     tempsEc = time.time() - start_time;
     print("TRI LEXICO")
+    
     print("Nb elem : %d " % nbElem)
     print("Temps d'execution : %s secondes" % (tempsEc))
 
@@ -53,7 +46,7 @@ def sortLexo(nbElem):
     f.write(str(tempsEc) + '\n')
     f.close()
 
-    # calcul de la moyenne à l'aide des variable : somme, moyenne, nbLigne
+    # calcul de la moyenne à l'aide des variables : somme, moyenne, nbLigne
     somme = 0
     moyenne = 0
     nbLigne = 0
@@ -72,7 +65,7 @@ def sortLexo(nbElem):
     print("Moyenne : %s" % moyenne)
     print("Nb ligne : %s " % nbLigne)
 
-    # on enregistre la moyenne obtenu dans le fichier moytridenombrement.txt
+    # on enregistre la moyenne obtenu dans le fichier moytrilexico.txt
     savepathMoy = str(Path.home()) + '/PycharmProjects/PROJET-TRI/moyLexico'
     completePathMoy = os.path.join(savepathMoy, 'moytrilexico.txt')
     moy = open(completePathMoy, 'a')
