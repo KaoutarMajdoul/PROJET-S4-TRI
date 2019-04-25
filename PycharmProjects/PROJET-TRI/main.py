@@ -1,6 +1,6 @@
 
 
-mport csv
+import csv
 import matplotlib.pyplot
 import os
 import pathlib
