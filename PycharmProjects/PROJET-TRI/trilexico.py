@@ -1,3 +1,5 @@
+#!/usr/bin/python3.4
+# coding: utf-8
 import csv
 import random
 import string
@@ -9,36 +11,72 @@ import sys
 import re
 from pathlib import Path
 
+def comparer( mot1 , mot2 ):
+    if ord( mot1[0] ) < ord( mot2[0] ) :
+        return mot1
+    if ord( mot1[0] ) > ord( mot2[0] ) :
+        return mot2
+    else :
+        if len( mot1 ) == 1 :
+            return mot1
+        if len( mot2 ) == 1 :
+            return mot2
+        else :
+            tmp1 = mot1[1:]
+            tmp2 = mot2[1:]
+            if comparer( tmp1 , tmp2 ) == tmp1 :
+                return mot1
+            else :
+                return mot2
+
+
 def sortLexo(nbElem):
     start_time = time.time() # enregistre le temps de départ
     listwords = ["".join(random.choice(ascii_letters) # choisi une lettre au hasard (le join va permettre de créer un mot(joindre les lettres))
-                         for j in range(random.randint(1000,100000)) ) # nombre de lettres dans le mot (choisi au hasard)
+                         for j in range(random.randint(1,3)) ) # nombre de lettres dans le mot (choisi au hasard)
                  for i in range(nbElem) ] # nombre de mots dans la liste à trier
-   
+   # print( listwords)
+    # tri les mots de la liste dans l'odre lexicographique
+  
     x = len(listwords)
    
+    
     #on récupère la représentation ascii de la 1ere lettre de chaque mot du tableau
     #ord transforme un caracère en nb ascii
     ascii = [ ord( listwords[i][0] ) for i in range( nbElem ) ]
     
     #on remplit le tableau de 0 
-    buckets = [ 0 for i in range ( max( ascii ) ) ]
+    nbOccurrences = [ 0 for i in range ( max( ascii ) ) ]
+    buckets = [ [] for i in range ( max( ascii ) ) ]
     
     
     #On met chaque élément du tableau dans l'indice associé du tableau buckets
     #le tri s'effectue quand on met l'element du tableau dans l'indice associé dans 
     #buckets
     for i in range( nbElem ) : #complexité en O(n) où n = nbElem
-    
-        buckets[ ascii [ i ] - 1 ] = listwords[ i ]
+        nbOccurrences[ ascii [ i ] - 1 ] += 1
+        buckets[ ascii [ i ] - 1 ] . append( listwords[ i ] )
     
     res = []
     
     #on parcourt buckets et on récupére les éléments != 0 
-    for i in range( 1 , max( ascii ) ) : #complexité constante car max ascii = 255
-        if buckets[i - 1] != 0 :
-            res.append(buckets[i-1]) #on concatene les mots triés
-    
+    for i in range( 0 , max( ascii ) ) : #complexité constante car max ascii = 255
+        while nbOccurrences[i] != 0 : #Tq on a plusieurs fois la mm première lettre
+            res.append(buckets[i].pop())  # on ajoute le prochain elmnt de buckets dans le tab res
+            nbOccurrences[i] -= 1 #on décremente nbOccurence de la premiere lettre du mot
+            if len( res ) >= 2 : #si la taille du tab res >= 2 
+                j = 1 # position du derniere element inséré (dans le sens inverse du tableau)
+                
+                #Quand on a plusieurs fois la mm lettre on compare le caractére suivant
+                #et si encore mm caractere on compare jusqu'à la fin du mot 
+                while j <= ( len( res ) - 1 ) and res[ len(res) - j ][0]==res[ len(res) - j - 1 ][0] and comparer( res[ len(res) - j ] , res[ len(res) - j - 1 ] ) == res[ len(res) - j ] :
+                    
+                     #quand l'ordre alphabétique n'est pas correcte on échange 
+                    tmp = res[ len(res) - j ]
+                    res[ len(res) - j ] = res[ len(res) - j - 1 ]
+                    res[ len(res) - j - 1 ] = tmp
+                    j += 1 #on incrémente la position du dernier elemt ajouter chaque fois qu'on ajoute un elemt
+    print( res )
     tempsEc = time.time() - start_time;
   
     tempsMaxVal = nbElem / tempsEc
@@ -151,7 +189,6 @@ def courbe():
 #
 
 def courbeLexico():
-
    # on affiche la courbe des moyennes selon le nbElem
     x = []
     y = []
@@ -306,9 +343,13 @@ def lancementLexico(nbLancement,min,pas,max):
 def main():
     #lancement(5,500,5000,50500);
 
-    lancementLexico(1,50,1000,15050);
+    #lancementLexico(1,50,100,1050);
     
-    #sortLexo(15);
+    sortLexo(60);
+    
+    #print ( comparer( "j" , "jn" ) );
+    
+    
 
 
 main()
