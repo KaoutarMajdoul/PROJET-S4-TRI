@@ -25,6 +25,7 @@ def sortLexo(nbElem):
    
     
     #on récupère la représentation ascii de la 1ere lettre de chaque mot du tableau
+    #ord transforme un caracère en nb ascii
     ascii = [ ord( listwords[i][0] ) for i in range( nbElem ) ]
     
     #on remplit le tableau de 0 
@@ -32,6 +33,8 @@ def sortLexo(nbElem):
     
     
     #On met chaque élément du tableau dans l'indice associé du tableau buckets
+    #le tri s'effectue quand on met l'element du tableau dans l'indice associé dans 
+    #buckets
     for i in range( nbElem ) : #complexité en O(n) où n = nbElem
     
         buckets[ ascii [ i ] - 1 ] = listwords[ i ]
