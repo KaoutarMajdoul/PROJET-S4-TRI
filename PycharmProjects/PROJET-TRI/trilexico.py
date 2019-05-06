@@ -1,5 +1,3 @@
-#!/usr/bin/python3.4
-# coding: utf-8
 import csv
 import random
 import string
@@ -11,19 +9,14 @@ import sys
 import re
 from pathlib import Path
 
-
-
 def sortLexo(nbElem):
     start_time = time.time() # enregistre le temps de départ
     listwords = ["".join(random.choice(ascii_letters) # choisi une lettre au hasard (le join va permettre de créer un mot(joindre les lettres))
                          for j in range(random.randint(1000,100000)) ) # nombre de lettres dans le mot (choisi au hasard)
                  for i in range(nbElem) ] # nombre de mots dans la liste à trier
-    #print( listwords)
-    # tri les mots de la liste dans l'odre lexicographique
-    # tri les mots de la liste dans l'odre lexicographique
+   
     x = len(listwords)
    
-    
     #on récupère la représentation ascii de la 1ere lettre de chaque mot du tableau
     #ord transforme un caracère en nb ascii
     ascii = [ ord( listwords[i][0] ) for i in range( nbElem ) ]
@@ -44,9 +37,8 @@ def sortLexo(nbElem):
     #on parcourt buckets et on récupére les éléments != 0 
     for i in range( 1 , max( ascii ) ) : #complexité constante car max ascii = 255
         if buckets[i - 1] != 0 :
-            res.append(buckets[i-1]) #on concatene les mots triées
+            res.append(buckets[i-1]) #on concatene les mots triés
     
-   # print( res )
     tempsEc = time.time() - start_time;
   
     tempsMaxVal = nbElem / tempsEc
