@@ -8,45 +8,53 @@ from string import ascii_letters
 import os
 import getpass
 import sys
+import re
 from pathlib import Path
-import pathlib
+
 
 
 def sortLexo(nbElem):
     start_time = time.time() # enregistre le temps de départ
-    li = ["".join(random.choice(ascii_letters) # choisi une lettre au hasard (le join va permettre de créer un mot(joindre les lettres))
+    listwords = ["".join(random.choice(ascii_letters) # choisi une lettre au hasard (le join va permettre de créer un mot(joindre les lettres))
                          for j in range(random.randint(1000,100000)) ) # nombre de lettres dans le mot (choisi au hasard)
                  for i in range(nbElem) ] # nombre de mots dans la liste à trier
-
+    #print( listwords)
     # tri les mots de la liste dans l'odre lexicographique
-    x = len(li)
+    # tri les mots de la liste dans l'odre lexicographique
+    x = len(listwords)
    
     
-    #print("List is : ",li)
+    #on récupère la représentation ascii de la 1ere lettre de chaque mot du tableau
+    ascii = [ ord( listwords[i][0] ) for i in range( nbElem ) ]
+    
+    #on remplit le tableau de 0 
+    buckets = [ 0 for i in range ( max( ascii ) ) ]
     
     
-    for i in range(0,x):
-        for j in range(0,x):
-            if li[i]<li[j]:
-                temp = li[i]
-                li[i]=li[j]
-                li[j]=temp
+    #On met chaque élément du tableau dans l'indice associé du tableau buckets
+    for i in range( nbElem ) : #complexité en O(n) où n = nbElem
     
+        buckets[ ascii [ i ] - 1 ] = listwords[ i ]
     
-
+    res = []
     
-    #print("After sorting String is : ",li)
-
-    del li
-    # affiche la liste de mots triés
-   # print(listwords)
-
+    #on parcourt buckets et on récupére les éléments != 0 
+    for i in range( 1 , max( ascii ) ) : #complexité constante car max ascii = 255
+        if buckets[i - 1] != 0 :
+            res.append(buckets[i-1]) #on concatene les mots triées
+    
+   # print( res )
     tempsEc = time.time() - start_time;
+  
+    tempsMaxVal = nbElem / tempsEc
+
+
+
     print("TRI LEXICO")
     print("Nb elem : %d " % nbElem)
     print("Temps d'execution : %s secondes" % (tempsEc))
 
-    # écrit le temps écoulé dans le fichier [nbElem]tridenombrement.csv
+    # écrit le temps écoulé dans le fichier [nbElem]trilexico.csv
     savepathTemps = str(Path.home()) + '/PycharmProjects/PROJET-TRI/tempsLexico'
     completePathTemps = os.path.join(savepathTemps, '%dtrilexico.txt ' % nbElem)
     f = open(completePathTemps, 'a')
@@ -64,20 +72,34 @@ def sortLexo(nbElem):
     # pour chaque élément de la colonne r, on additionne les valeur et on
     # incrémente le nbLigne afin de calculer la moyenne
     for r in cr:  # r = colone
-        somme += float(r[0:20])
+        somme += float(r[0:])
         nbLigne += 1
-    print("r[0] : %s"  % r[0:20])
-    print("Somme temps : %s" % somme)
+    # print("Somme temps : %s" % somme)
     moyenne = somme / nbLigne
-    print("Moyenne : %s" % moyenne)
-    print("Nb ligne : %s " % nbLigne)
+    # print("Moyenne : %s" % moyenne)
+    # print("Nb valeur : %s " % nbLigne)
 
-    # on enregistre la moyenne obtenu dans le fichier moytridenombrement.txt
+    # on enregistre la moyenne obtenu dans le fichier moytrilexico.txt
     savepathMoy = str(Path.home()) + '/PycharmProjects/PROJET-TRI/moyLexico'
     completePathMoy = os.path.join(savepathMoy, 'moytrilexico.txt')
     moy = open(completePathMoy, 'a')
     moy.write(str(moyenne) + ',' + str(nbElem) + '\n')
     moy.close()
+
+
+
+
+    ####################MEMOIRE#########################
+
+    #calcul moyenne memoire
+
+    savepathMem =  str(Path.home()) + '/PycharmProjects/PROJET-TRI/tempsLexico'
+    completePathMem = os.path.join(savepathMem, '%dmemlexico.txt ' % nbElem)
+    m = open(completePathMem, 'a')
+    m.write(str(tempsMaxVal) + '\n')
+    m.close()
+
+
 
 
 import csv
@@ -92,12 +114,12 @@ def courbe():
     x = []
     y = []
 
-    savepathDenombrement = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico'
-    completePathDenombrement = os.path.join(savepathDenombrement, 'moytrilexico.txt')
+    savepathLexico = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico'
+    completePathLexico = os.path.join(savepathLexico, 'moytrilexico.txt')
     # on ouvre le fichier contenant les moyennes selon le nbElem
-    with open(completePathDenombrement, 'r') as csvfileDenombrement:
+    with open(completePathLexico, 'r') as csvfileLexico:
         # on delimite la separation entre la moyenne et le nbElem par une virgule
-        plots = csv.reader(csvfileDenombrement, delimiter=',')
+        plots = csv.reader(csvfileLexico, delimiter=',')
         # on attribut les valeurs du nbElem a x et de la moyenne a y
         for row in plots:
             x.append(float(row[1]))
@@ -116,41 +138,170 @@ def courbe():
 
     # on efface les moyenne afin d'afficher une nouvelle courbe
     # avec les nouvelles valeurs
-    open(completePathDenombrement, "w").close()
+    open(completePathLexico, "w").close()
     
    
 
+    ####################MEMOIRE#########################
 
-def lancement(nbLancement,min,pas,max):
+    #calcul moyenne memoire
 
-    savepathDenombrement = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico'
-    completePathDenombrement = os.path.join(savepathDenombrement, 'moytrilexico.txt')
-    
-    nbLance = nbLancement 
+    savepathMem =  str(Path.home()) + '/PycharmProjects/PROJET-TRI/tempsLexico'
+    completePathMem = os.path.join(savepathMem, '%dmemlexico.txt ' % nbElem)
+    m = open(completePathMem, 'a')
+    m.write(str(tempsMaxVal) + '\n')
+    m.close()
+
+
+#
+
+def courbeLexico():
+
+   # on affiche la courbe des moyennes selon le nbElem
+    x = []
+    y = []
+
+    savepathLexico = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico/'
+    completePathLexico = os.path.join(savepathLexico, 'moytrilexico.txt')
+    #on ouvre le fichier contenant les moyennes selon le nbElem
+    with open(completePathLexico, 'r') as csvfileLexico:
+       # on delimite la separation entre la moyenne et le nbElem par une virgule
+        plots = csv.reader(csvfileLexico, delimiter=',')
+        #on attribut les valeurs du nbElem a x et de la moyenne a y
+        for row in plots:
+            x.append(float(row[1]))
+            y.append(float(row[0]))
+
+
+
+      #  on dessine la courbe
+        matplotlib.pyplot.plot(x, y, label='tri lexico', color="b")
+
+        matplotlib.pyplot.xlabel('nbElem')
+        matplotlib.pyplot.ylabel('Temps (s)')
+        matplotlib.pyplot.title('Courbe tri')
+        matplotlib.pyplot.legend()
+        matplotlib.pyplot.show()
+
+        # on efface les moyenne afin d'afficher une nouvelle courbe
+         #avec les nouvelles valeurs
+    open(completePathLexico, "w").close()
+
+
+
+
+
+
+def courbeLexicoMemoire():
+
+    #on affiche la courbe des moyennes selon le nbElem
+    x = []
+    y = []
+
+    savepathLexicomem = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico/'
+    completePathLexicomem = os.path.join(savepathLexicomem, 'memtrilexico.txt')
+    #on ouvre le fichier contenant les moyennes selon le nbElem
+    with open(completePathLexicomem, 'r') as csvfileLexicomem:
+       # on delimite la separation entre la moyenne et le nbElem par une virgule
+        plots = csv.reader(csvfileLexicomem, delimiter=',')
+       # on attribut les valeurs du nbElem a x et de la moyenne a y
+        for row in plots:
+            x.append(float(row[1]))
+            y.append(float(row[0]))
+
+
+
+      #  on dessine la courbe
+        matplotlib.pyplot.plot(x, y, label='tri lexico mem', color="r")
+
+        matplotlib.pyplot.xlabel('nbElem')
+        matplotlib.pyplot.ylabel('temps / maxVal')
+        matplotlib.pyplot.title('Courbe tri')
+        matplotlib.pyplot.legend()
+        matplotlib.pyplot.show()
+
+        # on efface les moyenne afin d'afficher une nouvelle courbe
+        # avec les nouvelles valeurs
+    open(completePathLexicomem, "w").close()
+
+
+
+
+def lancementLexico(nbLancement,min,pas,max):
+    savepathLexico = str(Path.home()) +'/PycharmProjects/PROJET-TRI/moyLexico/'
+    completePathLexico = os.path.join(savepathLexico, 'moytrilexico.txt')
+
+    nbLance = nbLancement
+
     while nbLance > 0 :
         print("--------- %d " % nbLance , "-------------")
-        open(completePathDenombrement, "w").close() #on supp les anciennes moyenne afin de garder celle du dernier lancement
+        open(completePathLexico, "w").close() #on supp les anciennes moyenne afin de garder celle du dernier lancement
         val = min
         while val <= max:
             sortLexo(val);
+            
+            
+            
+
             val += pas
 
         nbLance -= 1
 
 
-    
-    courbe();
-    
-    #pathSaveDirectory =str(Path.home()) +'/PycharmProjects/PROJET-TRI/figures'
-    #pathSaveFileInDir = os.path.join(pathSaveDirectory, "%s L %s MIN %s PAS %s MAX.png" % ( nbLancement, min ,pas, max))
-    
-    
-    
-   # print("TEST -------- %s " % pathSaveFileInDir)
-    #matplotlib.pyplot.savefig(pathSaveFileInDir);
+    ##################MEMOIRE#########################
+    savepathMem =  str(Path.home()) + '/PycharmProjects/PROJET-TRI/tempsLexico'
+    minD= min
+    maxD = max
+    pasD = pas
 
-   
-  
+    while minD < maxD :
+        minD += pasD
+
+        completePathMem = os.path.join(savepathMem, '%dmemlexico.txt ' % minD)
+
+
+
+        sommeMem = 0
+        moyenneMem = 0
+        nbLigneMem = 0
+
+       # on ouvre le fichier contenant les temps en lecture
+        cr = (open(completePathMem, "r"))
+
+       # pour chaque élément de la colonne r, on additionne les valeur et on
+        #incrémente le nbLigne afin de calculer la moyenne
+        for r in cr:  # r = colone
+            sommeMem += float(r[0:])
+            nbLigneMem += 1
+        print("Somme temps : %s" % sommeMem)
+        moyenneMem = sommeMem / nbLigneMem
+        print("Moyenne : %s" % moyenneMem)
+        print("Nb valeur : %s " % nbLigneMem)
+
+        #on enregistre la moyenne obtenu dans le fichier moytrilexico.txt
+        savepathMoymem = str(Path.home()) + '/PycharmProjects/PROJET-TRI/moyLexico'
+        completePathMoymem = os.path.join(savepathMoymem, 'memtrilexico.txt')
+        moymem = open(completePathMoymem, 'a')
+        moymem.write(str(moyenneMem) + ',' + str(minD) + '\n')
+        moymem.close()
+
+    #####################################
+
+
+
+    courbeLexico();
+    #courbeLexicoMemoire();
+    pathSaveDirectory =str(Path.home()) +'/PycharmProjects/PROJET-TRI/figures'
+    pathSaveFileInDir = os.path.join(pathSaveDirectory, "TRILEXICO%s L %s MIN %s PAS %s MAX.png" % ( nbLancement, min ,pas, max))
+
+
+    pathSaveDirectory =str(Path.home()) +'/PycharmProjects/PROJET-TRI/figures'
+    pathSaveFileInDir = os.path.join(pathSaveDirectory, "MEMOIRETRILEXICO%s L %s MIN %s PAS %s MAX.png" % ( nbLancement, min ,pas, max))
+
+
+
+    print("TEST -------- %s " % pathSaveFileInDir)
+    matplotlib.pyplot.savefig(pathSaveFileInDir);
 
 
 
@@ -158,9 +309,11 @@ def lancement(nbLancement,min,pas,max):
 
 
 def main():
+    #lancement(5,500,5000,50500);
 
-    lancement(3,500,5000,50500);
-
+    lancementLexico(1,50,1000,15050);
+    
+    #sortLexo(15);
 
 
 main()
