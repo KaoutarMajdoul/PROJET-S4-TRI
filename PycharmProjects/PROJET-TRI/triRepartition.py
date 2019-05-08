@@ -7,6 +7,7 @@ def bucket_sort(nbElem):
     length = len(alist)
     size = largest/length
 
+    # Premiere boucle for servant a parcourir alist et a saisir buckets
     buckets = [[0 for i in range(largest+1)] for _ in range(length+1)]
     # bucket de  taille largest +1 
     # liste de longeur max de liste
@@ -17,7 +18,7 @@ def bucket_sort(nbElem):
         buckets[j][alist[i]] += 1
 
     result = []
-
+    #  Deuxieme  boucle  for  servant  a  parcourir  buckets  avec  trois  boucles  imbriquees,  et  saisir  le tableau result
     for i in range(length):
     # on parcourt bucket et si chaque elemnt != 0 on met indice dans liste resultat
         for j in range(largest):
@@ -26,7 +27,7 @@ def bucket_sort(nbElem):
                 result.append(j)
                 buckets[i][j] -= 1
 
-    return result
+    return result #result = alist mais triee
 
     #calcul de la moyenne du temps d'exécution de l'algo
     somme = 0
