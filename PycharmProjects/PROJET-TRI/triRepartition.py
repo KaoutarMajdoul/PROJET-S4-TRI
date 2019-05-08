@@ -18,7 +18,8 @@ def bucket_sort(nbElem):
         buckets[j][alist[i]] += 1
 
     result = []
-    #  Deuxieme  boucle  for  servant  a  parcourir  buckets  avec  trois  boucles  imbriquees,  et  saisir  le tableau result
+    # Deuxieme  boucle  for  servant  a  parcourir  buckets  avec  trois  boucles 
+    # imbriquees,  et  saisir  le tableau result
     for i in range(length):
     # on parcourt bucket et si chaque elemnt != 0 on met indice dans liste resultat
         for j in range(largest):
