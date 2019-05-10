@@ -1,5 +1,3 @@
-#!/usr/bin/python3.4
-# coding: utf-8
 import csv
 import random
 import string
@@ -35,11 +33,8 @@ def sortLexo(nbElem):
     listwords = ["".join(random.choice(ascii_letters) # choisi une lettre au hasard (le join va permettre de créer un mot(joindre les lettres))
                          for j in range(random.randint(1,3)) ) # nombre de lettres dans le mot (choisi au hasard)
                  for i in range(nbElem) ] # nombre de mots dans la liste à trier
-   # print( listwords)
-    # tri les mots de la liste dans l'odre lexicographique
-  
+    
     x = len(listwords)
-   
     
     #on récupère la représentation ascii de la 1ere lettre de chaque mot du tableau
     #ord transforme un caracère en nb ascii
@@ -59,15 +54,15 @@ def sortLexo(nbElem):
     
     res = []
     
-    #on parcourt buckets et on récupére les éléments != 0 
+    #on parcourt buckets et on récupère les éléments != 0 
     for i in range( 0 , max( ascii ) ) : #complexité constante car max ascii = 255
-        while nbOccurrences[i] != 0 : #Tq on a plusieurs fois la mm première lettre
-            res.append(buckets[i].pop())  # on ajoute le prochain elmnt de buckets dans le tab res
+        while nbOccurrences[i] != 0 : #Tq on a plusieurs fois la même première lettre
+            res.append(buckets[i].pop())  # on ajoute le prochain élément de buckets dans le tab res
             nbOccurrences[i] -= 1 #on décremente nbOccurence de la premiere lettre du mot
             if len( res ) >= 2 : #si la taille du tab res >= 2 
-                j = 1 # position du derniere element inséré (dans le sens inverse du tableau)
+                j = 1 # position du derniere élément inséré (dans le sens inverse du tableau)
                 
-                #Quand on a plusieurs fois la mm lettre on compare le caractére suivant
+                #Quand on a plusieurs fois la même lettre on compare le caractére suivant
                 #et si encore mm caractere on compare jusqu'à la fin du mot 
                 while j <= ( len( res ) - 1 ) and res[ len(res) - j ][0]==res[ len(res) - j - 1 ][0] and comparer( res[ len(res) - j ] , res[ len(res) - j - 1 ] ) == res[ len(res) - j ] :
                     
@@ -76,7 +71,7 @@ def sortLexo(nbElem):
                     res[ len(res) - j ] = res[ len(res) - j - 1 ]
                     res[ len(res) - j - 1 ] = tmp
                     j += 1 #on incrémente la position du dernier elemt ajouter chaque fois qu'on ajoute un elemt
-    print( res )
+   
     tempsEc = time.time() - start_time;
   
     tempsMaxVal = nbElem / tempsEc
